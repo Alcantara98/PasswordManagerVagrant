@@ -1,24 +1,41 @@
-<?php
-	$db_host   = '192.168.2.12';
-	$db_name   = 'fvision';
-	$db_user   = 'webuser';
-	$db_passwd = 'insecure_db_pw';
-	
-	$conn = mysqli_connect($db_host, $db_user, $db_passwd, $db_name);
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
 
-	if(conn === false){
-		die("No Connection. " . mysqli_connect_error());
-	}
-	
-	$sql = "SELECT name FROM papers WHERE code = 'COSC326';";
-	$result = mysqli_query($conn, $sql);
+    <p>Insecure Password Keeper</p>
+    <a href="signup.php">Sign Up</a>
+    <br>
+    <br>
+    <form action="" method="post">
+        <label>Username:</label>
+        <br>
+        <INPUT TYPE = "Text" VALUE ="" NAME = "username">
+        <br>
+        <br>
+        <label>Password:</label>
+        <br>
+        <INPUT TYPE = "Text" VALUE ="" NAME = "password">
+        <br>
+        <br>
+        <INPUT TYPE = "Submit" Name = "Submit1" VALUE = "Login">
+    </form>
+    <br>
+    <?php
+    require 'dbconnection.php';
+    if(isset($_POST['username']) && $_POST['username'] === '' 
+    && isset($_POST['password']) && $_POST['password'] !== ''){
+        echo 'please fill in username box'; 
+    }elseif(isset($_POST['username']) && $_POST['username'] !== '' 
+    && isset($_POST['password']) && $_POST['password'] === ''){
+        echo 'please fill in password box';
+    }elseif(isset($_POST['username']) && $_POST['username'] !== '' 
+    && isset($_POST['password']) && $_POST['password'] !== ''){
 
-	if(mysqli_num_rows($result) == 0){
-		echo Hi;
-	}
-	
-	while($row = mysqli_fetch_array($result)){
-		   echo $row['name'];
-	}
-	//echo $row['name'];
-?>
+    }
+    ?>
+</body>
+</html> 
