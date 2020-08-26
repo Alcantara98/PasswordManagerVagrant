@@ -41,6 +41,7 @@
     //If both are filled we go ahead with the database query.
     elseif(isset($_POST['username']) && $_POST['username'] !== '' 
     && isset($_POST['dpassword']) && $_POST['dpassword'] !== ''){
+        echo "Hello";
         $username = $_POST['username'];
         $dpassword = $_POST['dpassword'];
 
@@ -48,6 +49,7 @@
         $sql = "SELECT * FROM users WHERE username = ? && password = ?;";
         $stmt = mysqli_stmt_init($conn);
         if(!mysqli_stmt_prepare($stmt, $sql)){
+            echo "Hello";
             exit();
         }else{
             mysqli_stmt_bind_param($stmt, "ss", $username, $dpassword);
@@ -58,6 +60,7 @@
             if($row = mysqli_fetch_array($result)){
                 if($dpassword == $row['password'] && $username == $row['username']){
                     session_start();
+                    echo "Hello";
                     $_SESSION['unique_username'] = $row['username'];
                     header('Location: passwords.php?Login=successful');
                 }

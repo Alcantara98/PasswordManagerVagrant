@@ -48,6 +48,7 @@
         $sql = "SELECT * FROM users WHERE username = ?;";
         $stmt = mysqli_stmt_init($conn);
         if(!mysqli_stmt_prepare($stmt, $sql)){
+            echo "Hello";
             exit();
         }else{
             mysqli_stmt_bind_param($stmt, "s", $username);

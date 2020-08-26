@@ -11,24 +11,24 @@ Vagrant.configure("2") do |config|
 
   # This VM will be the webserver for our application and will host 
   # all the web pages accesible to non-root users.
-  config.vm.define "user_webserver" do |webserver|
+  config.vm.define "userwebserver" do |userwebserver|
     # The following options will only affect webserver VM.
-    webserver.vm.hostname = "webserver"
+    userwebserver.vm.hostname = "userwebserver"
     
     # This will allow host computer to connect to localhost (127.0.0.1) which is 
     # a loopback address which should keep everything local. It will connect via
     # port 8080, and guest will receive it via port 80.
-    user_webserver.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+    userwebserver.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
     
     # This sets up a private network in which the three VMs shall communicate.
-    user_webserver.vm.network "private_network", ip: "192.168.2.11"
+    userwebserver.vm.network "private_network", ip: "192.168.2.11"
 
     # This following line is only necessary in the CS Labs.
-    user_webserver.vm.synced_folder ".", "/vagrant", owner: "vagrant", group: "vagrant", mount_options: ["dmode=775,fmode=777"]
+    userwebserver.vm.synced_folder ".", "/vagrant", owner: "vagrant", group: "vagrant", mount_options: ["dmode=775,fmode=777"]
 
     # The following shell commands will setup the webserver, we will be installing 
     # and using apache2 in this case.
-    user_webserver.vm.provision "shell", inline: <<-SHELL
+    userwebserver.vm.provision "shell", inline: <<-SHELL
       apt-get update
       apt-get install -y apache2 php libapache2-mod-php php-mysql
             
@@ -49,15 +49,15 @@ Vagrant.configure("2") do |config|
 
   # Here is the section for defining the database server, which I have
   # named "dbserver".
-  config.vm.define "passwd_dbserver" do |passwd_dbserver|
-    dbserver.vm.hostname = "dbserver"
+  config.vm.define "passwddbserver" do |passwddbserver|
+    passwddbserver.vm.hostname = "passwddbserver"
     # Note that the IP address is different from that of the webserver
     # above: it is important that no two VMs attempt to use the same
     # IP address on the private_network.
-    passwd_dbserver.vm.network "private_network", ip: "192.168.2.12"
-    passwd_dbserver.vm.synced_folder ".", "/vagrant", owner: "vagrant", group: "vagrant", mount_options: ["dmode=775,fmode=777"]
+    passwddbserver.vm.network "private_network", ip: "192.168.2.12"
+    passwddbserver.vm.synced_folder ".", "/vagrant", owner: "vagrant", group: "vagrant", mount_options: ["dmode=775,fmode=777"]
     
-    passwd_dbserver.vm.provision "shell", inline: <<-SHELL
+    passwddbserver.vm.provision "shell", inline: <<-SHELL
       # Update Ubuntu software packages.
       apt-get update
       
