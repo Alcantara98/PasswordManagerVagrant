@@ -24,6 +24,7 @@
     </form>
     <br>
     <?php
+    session_start();
     //imports our connection to database server from dbconnection.php
     require 'dbconnection.php';
 
@@ -45,11 +46,13 @@
         $dpassword = $_POST['dpassword'];
 
         //This will allow injections, prepare function doesn't seem to work with current sql server.
-        $sql = "SELECT * FROM users WHERE username = dusername && password = dpassword;";
-        $result = mysqli_query($sql, $conn);
+        $sql = "SELECT * FROM users WHERE username = '$dusername' AND password = '$dpassword';";
+        $result = mysqli_query($conn, $sql);
+        while($row = mysqli_fetch_array($result)){
+            echo $row['name'];
+        }
         if($row = mysqli_fetch_array($result)){
-            if($dpassword == $row['password'] && $username == $row['username']){
-                session_start();
+            if($dpassword == $row['password'] && $dusername == $row['username']){
                 $_SESSION['unique_username'] = $row['username'];
                 header('Location: passwords.php?Login=successful');
             }

@@ -85,8 +85,8 @@
                     header("Location: login.php?signup=successful");
                 }
             }
-            */
         }
+        */
     }
     ?>
 </body>
