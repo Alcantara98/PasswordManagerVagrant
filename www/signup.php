@@ -1,4 +1,12 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
+<?php
+    if(isset($_SESSION['unique_username'])){
+        header("Location: passwords.php?currently_logged_in");
+    }
+?>
 <html lang="en" dir="ltr">
 
 <head>
@@ -45,20 +53,23 @@
             $dpassword = $_POST['dpassword'];
 
             //Instead of putting the variables straight in, we this to avoid sql injections.
-            $sql = "SELECT * FROM users WHERE username = ?;";
+            $sql = "SELECT * FROM useraccounts WHERE username = ?;";
             $stmt = mysqli_stmt_init($conn);
             if (!mysqli_stmt_prepare($stmt, $sql)) {
                 echo "Hello0";
                 exit();
             } else {
-                mysqli_stmt_bind_param($stmt, "s", $username);
+                mysqli_stmt_bind_param($stmt, "s", $dusername);
                 mysqli_stmt_execute($stmt);
                 $result = mysqli_stmt_get_result($stmt);
 
                 //If query succesful, we check again just incase, then we start a session.
                 if ($row = mysqli_fetch_array($result)) {
-                    if ($username == $row['username']) {
-                        echo "username has already been taken, please choose a different username";
+                    if ($dusername == $row['username']) {
+                        echo "username has already been taken";
+                    }else{
+                        echo "Something went wrong";
+                        exit();
                     }
                 } else {
                     $sql = "INSERT INTO users (username, password, isroot) VALUES (?, ?, ?);";
