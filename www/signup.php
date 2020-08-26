@@ -41,11 +41,23 @@
     //If both are filled we go ahead with the database query.
     elseif(isset($_POST['username']) && $_POST['username'] !== '' 
     && isset($_POST['dpassword']) && $_POST['dpassword'] !== ''){
-        $username = $_POST['username'];
+        $dusername = $_POST['username'];
         $dpassword = $_POST['dpassword'];
 
         //Instead of putting the variables straight in, we this to avoid sql injections.
-        $sql = "SELECT * FROM users WHERE username = ?;";
+        $sql = "SELECT * FROM users WHERE username = $dusername;";
+        $result = mysqli_query($sql, $conn);
+        if($row = mysqli_fetch_array($result)){
+            if($dusername == $row['username']){
+                echo "username has already been taken, please choose a different username";
+            }
+        }
+        else{
+            $sql = "INSERT INTO users (username, password) VALUES (dusername, dpassword);";
+            mysqli_query($sql, $conn);
+            header("Location: login.php?signup=successful");
+        }
+        /*
         $stmt = mysqli_stmt_init($conn);
         if(!mysqli_stmt_prepare($stmt, $sql)){
             echo "Hello";
@@ -72,6 +84,7 @@
                     header("Location: login.php?signup=successful");
                 }
             }
+            */
         }
     }
     ?>

@@ -41,10 +41,23 @@
     //If both are filled we go ahead with the database query.
     elseif(isset($_POST['username']) && $_POST['username'] !== '' 
     && isset($_POST['dpassword']) && $_POST['dpassword'] !== ''){
-        echo "Hello";
-        $username = $_POST['username'];
+        $dusername = $_POST['username'];
         $dpassword = $_POST['dpassword'];
 
+        //This will allow injections, prepare function doesn't seem to work with current sql server.
+        $sql = "SELECT * FROM users WHERE username = dusername && password = dpassword;";
+        $result = mysqli_query($sql, $conn);
+        if($row = mysqli_fetch_array($result)){
+            if($dpassword == $row['password'] && $username == $row['username']){
+                session_start();
+                $_SESSION['unique_username'] = $row['username'];
+                header('Location: passwords.php?Login=successful');
+            }
+        }
+        else{
+            echo "invalid username or password";
+        }
+        /*
         //Instead of putting the variables straight in, we this to avoid sql injections.
         $sql = "SELECT * FROM users WHERE username = ? && password = ?;";
         $stmt = mysqli_stmt_init($conn);
@@ -60,7 +73,6 @@
             if($row = mysqli_fetch_array($result)){
                 if($dpassword == $row['password'] && $username == $row['username']){
                     session_start();
-                    echo "Hello";
                     $_SESSION['unique_username'] = $row['username'];
                     header('Location: passwords.php?Login=successful');
                 }
@@ -69,7 +81,7 @@
             else{
                 echo "invalid username or password";
             }
-        }
+        }*/
     }
     ?>
 </body>
