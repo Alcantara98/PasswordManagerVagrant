@@ -44,7 +44,7 @@
         $dusername = $_POST['username'];
         $dpassword = $_POST['dpassword'];
 
-        //Instead of putting the variables straight in, we this to avoid sql injections.
+        //This will allow injections, prepare function doesn't seem to work with current sql server.
         $sql = "SELECT * FROM users WHERE username = $dusername;";
         $result = mysqli_query($sql, $conn);
         if($row = mysqli_fetch_array($result)){
@@ -58,6 +58,7 @@
             header("Location: login.php?signup=successful");
         }
         /*
+        //Instead of putting the variables straight in, we this to avoid sql injections.
         $stmt = mysqli_stmt_init($conn);
         if(!mysqli_stmt_prepare($stmt, $sql)){
             echo "Hello";
