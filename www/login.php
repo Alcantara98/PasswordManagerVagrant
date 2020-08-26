@@ -44,13 +44,11 @@
     && isset($_POST['dpassword']) && $_POST['dpassword'] !== ''){
         $dusername = $_POST['username'];
         $dpassword = $_POST['dpassword'];
-
+        /*
         //This will allow injections, prepare function doesn't seem to work with current sql server.
         $sql = "SELECT * FROM users WHERE username = '$dusername' AND password = '$dpassword';";
         $result = mysqli_query($conn, $sql);
-        while($row = mysqli_fetch_array($result)){
-            echo $row['name'];
-        }
+
         if($row = mysqli_fetch_array($result)){
             if($dpassword == $row['password'] && $dusername == $row['username']){
                 $_SESSION['unique_username'] = $row['username'];
@@ -59,8 +57,8 @@
         }
         else{
             echo "invalid username or password";
-        }
-        /*
+        }*/
+        
         //Instead of putting the variables straight in, we this to avoid sql injections.
         $sql = "SELECT * FROM users WHERE username = ? && password = ?;";
         $stmt = mysqli_stmt_init($conn);
@@ -68,13 +66,13 @@
             echo "Hello";
             exit();
         }else{
-            mysqli_stmt_bind_param($stmt, "ss", $username, $dpassword);
+            mysqli_stmt_bind_param($stmt, "ss", $dusername, $dpassword);
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
 
             //If query succesful, we check again just incase, then we start a session.
             if($row = mysqli_fetch_array($result)){
-                if($dpassword == $row['password'] && $username == $row['username']){
+                if($dpassword == $row['password'] && $dusername == $row['username']){
                     session_start();
                     $_SESSION['unique_username'] = $row['username'];
                     header('Location: passwords.php?Login=successful');
@@ -84,7 +82,7 @@
             else{
                 echo "invalid username or password";
             }
-        }*/
+        }
     }
     ?>
 </body>
