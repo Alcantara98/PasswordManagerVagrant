@@ -1,0 +1,41 @@
+html{
+    font-family: Arial;
+    color: white;
+    background-image: url(background.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+}
+a{
+    display: block;
+    color: pink;
+    text-decoration: none;
+    font-size: 13px;
+    padding: 10px 0px 15px 2px;
+}
+body{
+    background: rgba(5, 0, 27, 0.397);
+    background-position: center center;
+    width:17%;
+    padding: 50px;
+    margin: 70px;
+    position: fixed;
+    left: 1240px;
+}
+#button{
+    border: 0;
+    background: #89d6ee6b;
+    padding: 0.5rem 1rem;
+    margin: 1px 0px 0px 0px;
+    color: white;
+}
+label{
+    display: block;
+    font-size: 15px;
+    margin: 0px 0px -5px 0px;
+}
+input{
+    margin: -15px 0px;
+}
+p{
+    color: rgb(255, 160, 176);
+}

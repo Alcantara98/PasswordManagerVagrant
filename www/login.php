@@ -12,26 +12,27 @@ if (isset($_SESSION['unique_username'])) {
 <head>
     <meta charset="UTF-8">
     <title>PASSWORD login</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="icon.png">
 </head>
 
 <body>
-    <h1>Insecure Password Manager Login</h1>
-    <a href="signup.php">Sign Up</a>
-    <br>
-    <br>
+    <h1>Password Manager <br>Login</h1>
     <form action="" method="post">
-        <label>Username:</label>
+        <label>Username</label>
         <br>
         <INPUT TYPE="Text" VALUE="" NAME="username">
         <br>
         <br>
-        <label>Password:</label>
+        <label>Password</label>
         <br>
         <INPUT TYPE="Text" VALUE="" NAME="dpassword">
         <br>
         <br>
-        <INPUT TYPE="Submit" Name="Submit1" VALUE="Login">
+        <INPUT TYPE="Submit" Name="Submit1" VALUE="Login" id="button">
     </form>
+    <br>
+    <a href="signup.php">Sign Up</a>
     <?php
     //imports our connection to database server from dbconnection.php
     require 'dbconnection.php';
@@ -66,6 +67,10 @@ if (isset($_SESSION['unique_username'])) {
                         session_start();
                         $_SESSION['unique_username'] = $row['username'];
                         header('Location: passwords.php?Login=successful');
+                        exit();
+                    }
+                    else {
+                        echo "invalid username or password";
                         exit();
                     }
                 } else {
