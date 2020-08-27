@@ -45,6 +45,8 @@ if (isset($_POST['query']) && $_POST['query'] !== '' && $_SESSION['root_level'] 
     $sql = "$query";
     $result = mysqli_query($conn, $sql);
 
+    echo "<div id='table-wrapper'>";
+    echo "<div id='table-scroll'>";
     echo '<table>';
     while ($row = mysqli_fetch_array($result)) {
         echo '<tr>';
@@ -54,6 +56,8 @@ if (isset($_POST['query']) && $_POST['query'] !== '' && $_SESSION['root_level'] 
         echo '<tr>';
     }
     echo '</table>';
+    echo '</div>';
+    echo '</div>';
 }elseif(isset($_POST['useraccounts']) && $_POST['useraccounts'] !== ''){
     $sql = "SELECT * FROM useraccounts;";
     $result = mysqli_query($conn, $sql);

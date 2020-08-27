@@ -47,16 +47,26 @@ Vagrant.configure("2") do |config|
 
       # Reload the webserver configuration, to pick up our changes
       service apache2 reload
+
+      # Here we are going to enable ufw firewall for added security
+      # ubuntu should come with these but we are going to install 
+      # just incase.
+      apt-get install ufw
+      ufw allow ssh
+      ufw allow http
+      ufw allow https
+      ufw allow 80/tcp
+      ufw enable
     SHELL
   end
 
   # The webserver VM will be a webserver containing all the pages that
-  # non-root users will be able to access.
+  # root users will be able to access.
   config.vm.define "rootserver" do |rootserver|
-    # These are options specific to the webserver VM.
+    # These are options specific to the root webserver VM.
     rootserver.vm.hostname = "rootserver"
     
-    # This will allow host computer to connect to localhost via port 8080,
+    # This will allow host computer to connect to localhost via port 8090,
     # to port 80 which is used by the VM.
     rootserver.vm.network "forwarded_port", guest: 80, host: 8090, host_ip: "127.0.0.1"
     
@@ -88,6 +98,16 @@ Vagrant.configure("2") do |config|
 
       # Reload the webserver configuration, to pick up our changes
       service apache2 reload
+
+      # Here we are going to enable ufw firewall for added security
+      # ubuntu should come with these but we are going to install 
+      # just incase.
+      apt-get install ufw
+      ufw allow ssh
+      ufw allow http
+      ufw allow https
+      ufw allow 80/tcp
+      ufw enable
     SHELL
   end
 
@@ -156,6 +176,16 @@ Vagrant.configure("2") do |config|
       # We then restart the MySQL server to ensure that it picks up
       # our configuration changes.
       service mysql restart
+
+      # Here we are going to enable ufw firewall for added security
+      # ubuntu should come with these but we are going to install 
+      # just incase.
+      apt-get install ufw
+      ufw allow ssh
+      ufw allow http
+      ufw allow https
+      ufw allow 80/tcp
+      ufw enable
     SHELL
   end
 
