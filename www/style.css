@@ -7,7 +7,7 @@ html{
 }
 a{
     display: block;
-    color: pink;
+    color: rgb(255, 116, 139);
     text-decoration: none;
     font-size: 13px;
     padding: 10px 0px 15px 2px;
@@ -23,7 +23,7 @@ body{
 }
 #button{
     border: 0;
-    background: #89d6ee6b;
+    background: #53aec7c9;
     padding: 0.5rem 1rem;
     margin: 1px 0px 0px 0px;
     color: white;
@@ -38,4 +38,8 @@ input{
 }
 p{
     color: rgb(255, 160, 176);
+}
+h1 {
+    color: rgb(192, 242, 255);
+
 }

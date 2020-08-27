@@ -58,7 +58,7 @@ Vagrant.configure("2") do |config|
     
     # This will allow host computer to connect to localhost via port 8080,
     # to port 80 which is used by the VM.
-    rootserver.vm.network "forwarded_port", guest: 90, host: 8090, host_ip: "127.0.0.1"
+    rootserver.vm.network "forwarded_port", guest: 80, host: 8090, host_ip: "127.0.0.1"
     
     # This sets up a private network that our VMs will use to communicate
     # with each other. 

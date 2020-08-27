@@ -3,14 +3,13 @@ session_start();
 ?>
 <!DOCTYPE html>
 <?php
-if (isset($_SESSION['unique_username'])) {
+if (isset($_SESSION['root_username'])) {
     header("Location: passwords.php?currently_logged_in");
 }
 ?>
 <html lang="en" dir="ltr">
 
 <head>
-    <meta charset="UTF-8">
     <title>PASSWORD login</title>
     <link rel="stylesheet" href="rootstyle.css">
     <link rel="icon" href="icon.png">
@@ -26,15 +25,15 @@ if (isset($_SESSION['unique_username'])) {
         <br>
         <label>Password</label>
         <br>
-        <INPUT TYPE="Text" VALUE="" NAME="dpassword">
+        <INPUT TYPE="Password" VALUE="" NAME="dpassword">
         <br>
         <br>
         <INPUT TYPE="Submit" Name="Submit1" VALUE="Login" id="button">
     </form>
-    
+
     <?php
     //imports our connection to database server from dbconnection.php
-    require 'dbconnection.php';
+    require 'rootdbconnection.php';
 
     //This section checks if one or both boxes are blank and notifies the user.
     if (isset($_POST['username']) && isset($_POST['dpassword'])) {
@@ -62,10 +61,10 @@ if (isset($_SESSION['unique_username'])) {
 
                 //If query succesful, we check again just incase, then we start a session.
                 if ($row = mysqli_fetch_array($result)) {
-                    if ($dpassword == $row['password'] && $dusername == $row['username']) {
+                    if ($dpassword == $row['password'] && $dusername == $row['username'] && $row['isroot'] > 0) {
                         session_start();
-                        $_SESSION['unique_username'] = $row['username'];
-                        header('Location: passwords.php?Login=successful');
+                        $_SESSION['root_level'] = $row['isroot'];
+                        header('Location: rootpasswords.php?Welcome=rootuser');
                         exit();
                     }
                     else {

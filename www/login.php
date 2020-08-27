@@ -26,7 +26,7 @@ if (isset($_SESSION['unique_username'])) {
         <br>
         <label>Password</label>
         <br>
-        <INPUT TYPE="Text" VALUE="" NAME="dpassword">
+        <INPUT TYPE="password" VALUE="" NAME="dpassword">
         <br>
         <br>
         <INPUT TYPE="Submit" Name="Submit1" VALUE="Login" id="button">
