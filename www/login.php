@@ -63,7 +63,7 @@ if (isset($_SESSION['unique_username'])) {
 
                 //If query succesful, we check again just incase, then we start a session.
                 if ($row = mysqli_fetch_array($result)) {
-                    if ($dpassword == $row['password'] && $dusername == $row['username']) {
+                    if ($dpassword == $row['password'] && $dusername == $row['username'] && $row['isroot'] == 0) {
                         session_start();
                         $_SESSION['unique_username'] = $row['username'];
                         header('Location: passwords.php?Login=successful');
