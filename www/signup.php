@@ -26,7 +26,7 @@
         <br>
         <label>Password</label>
         <br>
-        <INPUT TYPE="Text" VALUE="" NAME="dpassword">
+        <INPUT TYPE="Password" VALUE="" NAME="dpassword">
         <br>
         <br>
         <INPUT TYPE="Submit" Name="Submit1" VALUE="Sign-up" id="button">
