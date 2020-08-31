@@ -1,5 +1,4 @@
 <?php
-header("Location: login.php");
     $db_host   = '192.168.2.12';
 	$db_name   = 'passwordmanager';
 	$db_user   = 'passuser';
