@@ -26,7 +26,7 @@ if (!isset($_SESSION['unique_username'])) {
     <p>Fill in the following three fields to add
     <br> an account to your Password Manager</p>
     <form action="" method="post">
-        <label>Website</label>
+        <label>Website or Application Name</label>
         <br>
         <input type="hidden" name="step" value="1">
         <INPUT TYPE="Text" VALUE="" NAME="dwebsite">
